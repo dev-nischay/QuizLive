@@ -10,8 +10,8 @@ export default function TabSwitcher({ tab, setTab, setFieldError }: TabSwitcherP
           setTab("login");
           setFieldError(undefined);
         }}
-        className={` mt-0 ml-0 rounded-2xl h-full text-base lg:h-[80%] w-1/2 flex justify-center items-center font-bold transition-all    ${
-          tab === "login" ? " scale-110 " : " bg-none bg-transparent "
+        className={` mt-0 ml-0  rounded-2xl h-full text-base lg:h-[80%] w-1/2 flex justify-center items-center font-bold transition-all    ${
+          tab === "login" ? " scale-110  " : " bg-none bg-transparent "
         }`}
       >
         <span className="transition-all ">{tab === "login" ? <Dot size={30} /> : <Dot size={30} color="grey" />}</span>
