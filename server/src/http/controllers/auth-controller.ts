@@ -66,7 +66,7 @@ export const loginAccount = async (
 
     return res.json({
       success: true,
-      data: { token: payload },
+      data: { token: payload, username: userExits.username },
     });
   } else {
     return next(new AppError("Secret not applied", httpStatus.InternalServerError));
