@@ -15,12 +15,12 @@ import { useFormSubmit } from "../../hooks/form-submit";
 import { loginSchema, signupSchema } from "../../validation/auth-schema";
 import { useAuthStore } from "../../store/authStore";
 import Loading from "../globals/Loading";
-import type { AxiosError } from "axios";
 import { type ApiResponse, type ApiError } from "../../services/api";
 
 export default function AuthPage() {
-  const { fieldErrors, validator, submitCount, setFieldErrors, genericError, setGenericError } =
-    useFormSubmit<AuthFormData>();
+  const { fieldErrors, validator, submitCount, setFieldErrors } = useFormSubmit<AuthFormData>();
+
+  const [genericError, setGenericError] = useState<string | null>(null);
   const setUsername = useAuthStore((state) => state.setUsername);
   const setToken = useAuthStore((state) => state.setToken);
   const nav = useNavigate();
@@ -39,7 +39,8 @@ export default function AuthPage() {
     onError: (err) => {
       console.log(err);
 
-      setFieldErrors(err.fieldErrors);
+      err.fieldErrors && setFieldErrors(err.fieldErrors);
+
       setGenericError(err.error);
     },
   });
@@ -60,7 +61,7 @@ export default function AuthPage() {
       emailRef.current && (emailRef.current.value = "");
     },
     onError: (err) => {
-      setFieldErrors(err.fieldErrors);
+      err.fieldErrors && setFieldErrors(err.fieldErrors);
       setGenericError(err.error);
     },
   });
@@ -143,7 +144,14 @@ export default function AuthPage() {
           <MobileLogo />
 
           {/* tab switcher */}
-          <TabSwitcher tab={tab} setTab={setTab} setFieldError={setFieldErrors} />
+          <TabSwitcher
+            tab={tab}
+            setTab={setTab}
+            onSwitch={() => {
+              setFieldErrors(null);
+              setGenericError(null);
+            }}
+          />
 
           {/* input area */}
           <div className="w-full mt-2 font-mono ">
@@ -180,9 +188,9 @@ export default function AuthPage() {
                 <label htmlFor="check" className="text-sm text-gray-400   tracking-wider  font-semibold ">
                   Remebmer me
                 </label>
-                {genericError.length > 0 && (
-                  <div className="absolute  inset-0 pointer-events-none ">
-                    <div className="text-center  text-red-500">user not found</div>
+                {String(genericError).length > 0 && (
+                  <div className="absolute  inset-0 pointer-events-none animate-pulse ">
+                    <div className="text-center  text-red-500">{genericError}</div>
                   </div>
                 )}
               </div>

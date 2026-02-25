@@ -18,7 +18,7 @@ export type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
 export type TabSwitcherProps<T> = {
   tab: "login" | "signup";
   setTab: React.Dispatch<React.SetStateAction<"login" | "signup">>;
-  setFieldError: React.Dispatch<React.SetStateAction<T | undefined>>;
+  onSwitch: () => void;
 };
 
 export type Features = {
