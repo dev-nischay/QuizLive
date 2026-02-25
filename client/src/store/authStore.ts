@@ -19,7 +19,7 @@ export const useAuthStore = create<AuthStore>()(
       username: "",
       role: null,
 
-      setRole: (role) => set((state) => ({ role: role, username: state.username })),
+      setRole: (role) => set((state) => ({ role: role, username: state.username, token: state.token })),
       // if role is null that means user is not in a quiz
       setToken: (token) => {
         set({ token });
@@ -40,7 +40,7 @@ export const useAuthStore = create<AuthStore>()(
       name: "auth-storage",
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
-        accessToken: state.token,
+        token: state.token,
         username: state.username,
         role: state.role,
       }),
