@@ -24,8 +24,13 @@ export const showResultSchema = z.object({
   questionId: z.string().max(24, "invalid question Id"),
 });
 
+export const stopQuizSchema = z.object({
+  type: z.literal("STOP_QUIZ"),
+});
+
 export type joinBody = z.infer<typeof joinQuizSchema>;
 export type startBody = z.infer<typeof startQuizSchema>;
 export type showQuestionBody = z.infer<typeof showQuestionSchema>;
 export type submitAnswerBody = z.infer<typeof submitAnswerSchema>;
 export type resultBody = z.infer<typeof showResultSchema>;
+export type stopBody = z.infer<typeof stopQuizSchema>;

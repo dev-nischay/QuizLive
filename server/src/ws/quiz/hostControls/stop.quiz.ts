@@ -20,7 +20,8 @@ export const stopQuiz = async (socket: AuthWebSocket, message: StopQuizRequest) 
   };
 
   broadCastMessage(quiz, response, { close: true, message: "quiz ended early by the host" });
-  hostsocket?.close(1000, "quiz is finished");
+
+  hostsocket?.close(1000, "quiz finished early");
 
   QuizMemory.delete(quizId); // quiz removed from memory
   await Quiz.findOneAndDelete({ createdBy: userId });

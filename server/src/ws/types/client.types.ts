@@ -1,9 +1,9 @@
-export type JoinMessageRequest = {
+export type JoinQuizRequest = {
   type: "JOIN_ROOM";
   name: string;
 };
 
-export type StartMessageRequest = {
+export type StartQuizRequest = {
   type: "START_QUIZ";
 };
 
@@ -31,9 +31,9 @@ export type LeaverQuizRequest = {
 };
 
 export type ClientResponse =
-  | JoinMessageRequest
+  | JoinQuizRequest
   | ShowQuestionRequest
   | SubmitAnswerRequest
   | ShowResultRequest
-  | StartMessageRequest
+  | StartQuizRequest
   | StopQuizRequest;
