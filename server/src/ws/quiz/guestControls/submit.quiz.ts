@@ -5,6 +5,7 @@ import { wsError } from "../../utils/wsError.js";
 import { zodParser } from "../../zod/zodParser.js";
 import { submitAnswerSchema, type submitAnswerBody } from "../../zod/quizActionsSchema.js";
 import { wsSend } from "../../utils/wsSend.js";
+import type { SubmitAnswerResponse } from "../../types/server.types.js";
 export const submitAnswer = async (socket: AuthWebSocket, message: SubmitAnswerRequest) => {
   const { quizId, userId } = socket.user;
 
@@ -35,6 +36,9 @@ export const submitAnswer = async (socket: AuthWebSocket, message: SubmitAnswerR
     throw new wsError("question not live yet", false);
   }
 
+  const correctAnswerIndex = quiz.questions.get(currentQuestionId)!.correctOptionIndex;
+  // ^ getting the correct answer index of current question
+
   if (!quiz.answers.has(currentQuestionId)) {
     console.log("current question entry not found in answer map cricical ERROR");
     throw new wsError("Internal Server Error kindly submit again", false);
@@ -44,6 +48,7 @@ export const submitAnswer = async (socket: AuthWebSocket, message: SubmitAnswerR
     return wsSend(socket, {
       type: "ANSWER_RESULT",
       accepted: false,
+      correctAnswerIndex,
       message: "You have already answered this question.",
       yourScore: currentUser.score,
     });
@@ -57,13 +62,14 @@ export const submitAnswer = async (socket: AuthWebSocket, message: SubmitAnswerR
   currentQuestionEntry.set(userId, selectedOptionIndex);
   // ^ entry for the user for current question in answeres map
 
-  if (quiz.questions.get(currentQuestionId)?.correctOptionIndex === selectedOptionIndex) {
+  if (correctAnswerIndex === selectedOptionIndex) {
     currentUser.score += 100; // udpating the score
 
     return wsSend(socket, {
       type: "ANSWER_RESULT",
       accepted: true,
       correct: true,
+      correctAnswerIndex,
       yourScore: currentUser?.score,
       message: "Correct answer!",
     });
@@ -72,6 +78,7 @@ export const submitAnswer = async (socket: AuthWebSocket, message: SubmitAnswerR
       type: "ANSWER_RESULT",
       accepted: true,
       correct: false,
+      correctAnswerIndex,
       yourScore: currentUser?.score,
       message: "Incorrect answer!",
     });

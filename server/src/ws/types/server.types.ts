@@ -1,4 +1,4 @@
-import type { Question } from "../../types/global.types.js";
+import type { Options, Question } from "../../types/global.types.js";
 import type { LeaderBoard, Result } from "./ws.types.js";
 export type JoinResponse = {
   type: "USER_JOINED";
@@ -26,6 +26,7 @@ export type SubmitAnswerResponse = {
   type: "ANSWER_RESULT";
   accepted: boolean;
   correct?: boolean;
+  correctAnswerIndex: Options;
   yourScore: number;
   message: string;
 };
