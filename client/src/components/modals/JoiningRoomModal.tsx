@@ -2,10 +2,13 @@
 import { useState, useEffect } from "react";
 import { X, Users } from "lucide-react";
 import type { JoinQuizModalProps } from "./modal.types";
+import { useRoomStore } from "../../store/roomStore";
 
 export function JoinQuizModal({ roomCode, onClose, onJoin }: JoinQuizModalProps) {
   const [countdown, setCountdown] = useState(5);
   const [isJoining, setIsJoining] = useState(false);
+
+  const setRoomCode = useRoomStore((state) => state.setRoomCode);
 
   useEffect(() => {
     if (countdown > 0 && !isJoining) {
@@ -14,7 +17,8 @@ export function JoinQuizModal({ roomCode, onClose, onJoin }: JoinQuizModalProps)
     } else if (countdown === 0 && !isJoining) {
       setIsJoining(true);
       setTimeout(() => {
-        onJoin?.();
+        onJoin();
+        setRoomCode(roomCode);
       }, 1000);
     }
   }, [countdown, isJoining, onJoin]);

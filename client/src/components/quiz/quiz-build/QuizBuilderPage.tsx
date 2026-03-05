@@ -1,6 +1,5 @@
 import BuildNavbar from "./quiz-build-components/BuildNav";
 import Input from "../../globals/Input";
-import { generateRoomCode } from "../../../utils/generateCode";
 import { QuestionBuilder } from "./quiz-build-components/QuestionInput";
 import { Plus, Zap } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -9,47 +8,34 @@ import type { Question, QuizFormData } from "../quiz.types";
 import { QuestionControls } from "./questionControls";
 import { useFormSubmit } from "../../../hooks/form-submit";
 import { createQuizSchema } from "../../../validation/quiz-schema";
-import { useMutation } from "@tanstack/react-query";
-import { submitQuiz } from "../../../services/postQuiz";
 import { useNavigate } from "react-router-dom";
-import { type ApiResponse, type ApiError } from "../../../services/api";
-import type { AxiosError } from "axios";
-import Loading from "../../globals/Loading";
 import { QuizCreatedModal } from "../../modals/QuizCreatedModal";
-import Error from "../../globals/Error";
 import { useAuthStore } from "../../../store/authStore";
+import { generateRoomCode } from "../../../utils/generateCode";
 
 export default function QuizBuilderPage() {
   const token = useAuthStore((state) => state.token);
 
   useEffect(() => {
     if (!token) {
-      nav("/login");
+      nav("/");
     }
+    const code = generateRoomCode();
+    setGeneratedCode(code);
+    console.log(code);
   }, []);
 
   const titleRef = useRef<HTMLInputElement | null>(null);
   const nav = useNavigate();
   const [active, setActive] = useState<boolean>(false);
+
   const [isCreating, setCreating] = useState(false);
   const [questions, setQuestions] = useState<Question[]>([]);
+  const [generatedCode, setGeneratedCode] = useState("");
   const [isEditing, setEditing] = useState<boolean>(false);
   const [editQuestion, setEditQuestion] = useState<Question | null>(null);
-  let { validator, fieldErrors, submitCount, setFieldErrors, genericError, setGenericError } =
-    useFormSubmit<QuizFormData>();
+  let { validator, fieldErrors, submitCount } = useFormSubmit<QuizFormData>();
   const quesControls = new QuestionControls(questions, setQuestions);
-
-  const { isPending, mutate, isError } = useMutation<ApiResponse<QuizFormData>, ApiError<QuizFormData>, QuizFormData>({
-    mutationFn: submitQuiz,
-    onSuccess: () => {
-      setCreating(true);
-      titleRef.current && (titleRef.current.value = "");
-    },
-    onError: (err) => {
-      setGenericError(err.error); // error:generic error
-      setFieldErrors(err.fieldErrors);
-    },
-  });
 
   const handleSubmit = () => {
     let title = titleRef.current!.value || "";
@@ -64,25 +50,23 @@ export default function QuizBuilderPage() {
     );
 
     if (isValid) {
-      mutate({ title, quizId: "12345", questions });
+      setCreating(true);
     }
   };
 
   console.log(questions);
 
-  if (isCreating)
+  if (isCreating) {
+    let title = titleRef.current!.value ?? "";
     return (
       <QuizCreatedModal
         onClose={() => setCreating(false)}
-        questionCount={questions.length}
-        roomCode={"123445"}
-        onGoToLobby={() => nav("/live")}
+        questionCount={questions.length} // remove this later
+        roomCode={generatedCode}
+        quizData={{ title, questions }}
       />
     );
-
-  if (isPending) return <Loading />;
-
-  if (isError) return <Error message={genericError} />;
+  }
 
   return (
     <div className="w-full min-h-screen  ">

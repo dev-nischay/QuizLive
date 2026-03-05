@@ -2,22 +2,23 @@ import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
 export type QuizStoreType = {
-  totalQuestions: number;
-  roomCode: string;
+  questionCount: number;
   title: string;
+  hostedBy: string;
 
-  setQuiz: (questions: number, roomCode: string, title: string) => void;
+  setQuiz: (questionCount: number, title: string, hostedBy: string) => void;
 };
 
-export const useAuthStore = create<QuizStoreType>()(
+export const useQuizStore = create<QuizStoreType>()(
   persist(
     (set) => ({
-      totalQuestions: 0,
+      questionCount: 0,
       roomCode: "",
       title: "",
+      hostedBy: "",
 
-      setQuiz: (questions, roomCode, title) => {
-        set({ totalQuestions: questions, roomCode, title });
+      setQuiz: (questions, title, hostedBy) => {
+        set({ questionCount: questions, title, hostedBy });
       },
     }),
     {

@@ -1,14 +1,25 @@
 import { Users, Zap } from "lucide-react";
-
+import { useQuizStore } from "../../../../store/quizStore";
+import { useLiveStore } from "../../../../store/liveStore";
+import { joinQuiz } from "../../../../live/handlers/guest/joinQuiz";
+import { useAuthStore } from "../../../../store/authStore";
+import { useShallow } from "zustand/shallow";
+import { socketService } from "../../../../live/socket-client";
+import { useEffect } from "react";
 export default function GuestLobby() {
-  // Mock data for lobby view only
-  const quizData = {
-    title: "Advanced JavaScript Concepts",
-    hostName: "Sarah Chen",
-    totalQuestions: 5,
-  };
+  const username = useAuthStore((state) => state.username);
 
-  const players = ["You", "Alice", "Bob", "Charlie", "Diana", "Eve", "Frank", "Grace", "john smith"];
+  const quizData = useQuizStore(
+    useShallow((state) => ({ title: state.title, totalQuestions: state.questionCount, hostName: state.hostedBy })),
+  );
+
+  const liveUsers = useLiveStore((state) => state.liveUsers);
+
+  useEffect(() => {
+    setTimeout(() => {
+      socketService.sendMessage(joinQuiz(username));
+    }, 1000);
+  }, []);
 
   return (
     <div className="min-h-screen text-white">
@@ -32,7 +43,7 @@ export default function GuestLobby() {
                   <div className="text-xs text-gray-500 font-mono mt-1">QUESTIONS</div>
                 </div>
                 <div className="p-4 bg-black/50 border border-gray-800 rounded-xl">
-                  <div className="text-2xl font-black text-teal-400">12</div>
+                  <div className="text-2xl font-black text-teal-400">{liveUsers.length}</div>
                   <div className="text-xs text-gray-500 font-mono mt-1">PLAYERS</div>
                 </div>
               </div>
@@ -42,7 +53,10 @@ export default function GuestLobby() {
                 <span className="text-sm font-mono">Waiting for host to start...</span>
               </div>
 
-              <button className="w-full relative group overflow-hidden rounded-xl mt-4">
+              <button
+                onClick={() => joinQuiz(username)}
+                className="w-full relative group overflow-hidden rounded-xl mt-4"
+              >
                 <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 to-teal-600" />
                 <div className="relative px-6 py-4 font-black text-white uppercase tracking-wider flex items-center justify-center gap-3">
                   <Zap className="w-5 h-5" />
@@ -59,7 +73,7 @@ export default function GuestLobby() {
               Players in Lobby
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              {players.map((name, i) => (
+              {liveUsers.map((name, i) => (
                 <div key={i} className="flex items-center gap-2 p-3 bg-black/50 border border-gray-800 rounded-lg">
                   <div className="w-8 h-8 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-lg flex items-center justify-center text-sm font-bold">
                     {name[0]}

@@ -1,4 +1,4 @@
-import Input from "../../../auth/authComponents/Input";
+import Input from "../../../globals/Input";
 import { useState, useRef, forwardRef, useEffect } from "react";
 import type { OptionProps, Question } from "../../quiz.types";
 import { Check } from "lucide-react";
@@ -15,6 +15,7 @@ export const QuestionBuilder = ({
   setEditing,
 }: QuestionBuilderProps) => {
   const { addQuestion, updateQuestion, removeQuestion } = quesControls;
+
   const questionRef = useRef<HTMLInputElement | null>(null);
   const [correctIndex, setCorrectIndex] = useState<0 | 1 | 2 | 3>(0);
   const optionsText = ["option a", "option b", "option c", "option d"];
@@ -94,7 +95,6 @@ export const QuestionBuilder = ({
           ref={questionRef}
           placeholder="Enter your question..."
           className="mt-2 "
-          error=""
         />
 
         <div className=" mt-5 2xl:text-sm text-gray-400  uppercase tracking-wider  font-semibold">answer options</div>

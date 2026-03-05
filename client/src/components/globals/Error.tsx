@@ -5,8 +5,7 @@ export default function Error({ message = "Something went wrong" }: { message: s
   const nav = useNavigate();
   return (
     <div className=" bg-black/60  flex items-center justify-center fixed inset-0 overflow-hidden">
-      {/* Animated background */}
-      <div className="relative z-10 max-w-2xl mx-auto px-6">
+      <div className="relative z-50 max-w-2xl mx-auto px-6">
         <div className="bg-gradient-to-br from-gray-900/90 via-black/90 to-gray-900/90 backdrop-blur-2xl rounded-3xl border border-red-500/30 overflow-hidden">
           {/* Top border glow */}
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-red-500 to-transparent"></div>

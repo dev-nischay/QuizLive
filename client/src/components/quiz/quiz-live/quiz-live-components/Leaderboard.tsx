@@ -1,23 +1,19 @@
+import { useLiveStore } from "../../../../store/liveStore";
 import Badge from "./Badge";
 
 export default function Leaderboard() {
-  const users = [
-    { name: "nischay", pts: 420 },
-    { name: "alex", pts: 380 },
-    { name: "sam", pts: 310 },
-    { name: "ravi", pts: 290 },
-    { name: "lee", pts: 260 },
-  ];
+  const participants = useLiveStore((state) => state.leaderBoard) ?? [];
+  const liveUsers = useLiveStore((state) => state.liveUsers) ?? 0;
   return (
     <div className="lg:sticky lg:top-4 lg:self-start bg-gradient-to-br from-gray-900/90 to-black/90 border border-emerald-500/30 rounded-2xl p-5 h-fit w-full lg:w-[24rem]">
       <div className="flex justify-between mt-2 mb-4">
         <div className="font-bold">Live Participants</div>
-        <Badge text={"6 online"} />
+        <Badge text={`${liveUsers.length} online`} />
       </div>
 
       <div className="flex flex-col gap-4">
-        {users.map((e, i) => (
-          <LiveParticipant key={i} name={e.name} points={e.pts} />
+        {participants.map((e, i) => (
+          <LiveParticipant key={i} name={e.name} points={e.score} />
         ))}
       </div>
     </div>

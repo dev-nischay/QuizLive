@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import LiveNav from "./quiz-live-components/LiveNav";
 import HostLobby from "./host/HostLobby";
 import HostActive from "./host/HostActive";
@@ -6,20 +6,42 @@ import HostResult from "./host/HostResult";
 import GuestLobby from "./guest/GuestLobby";
 import GuestActive from "./guest/GuestActive";
 import GuestResult from "./guest/GuestResult";
+import { useAuthStore } from "../../../store/authStore";
+import { useNavigate } from "react-router-dom";
+import { useQuizStore } from "../../../store/quizStore";
+import { useLiveStore } from "../../../store/liveStore";
+import { socketService } from "../../../live/socket-client";
+import { useRoomStore } from "../../../store/roomStore";
 export default function QuizLivePage() {
-  const [quizState, setQuizState] = useState<"lobby" | "active" | "result">("result");
-  const [role, setRole] = useState<"host" | "guest">("guest");
+  const phase = useLiveStore((state) => state.phase);
+  const liveUsers = useLiveStore((state) => state.liveUsers);
+
+  const token = useAuthStore((state) => state.token);
+  const role = useAuthStore((state) => state.role);
+
+  const quizId = useRoomStore((state) => state.roomCode);
+  const nav = useNavigate();
+
+  useEffect(() => {
+    if (!token) {
+      nav("/");
+    }
+    console.log("ran");
+    console.log(quizId);
+    if (token && quizId) socketService.connect(token, role!, quizId);
+  }, []);
+
   return (
     <div className="w-full min-h-screen   ">
-      <LiveNav />
+      <LiveNav currentPlayers={liveUsers.length ?? 0} />
       <div className=" mt-28 lg:mt-0 max-w-7xl mx-auto  lg:px-4 lg:py-2">
-        {quizState === "lobby" && role === "host" && <HostLobby />}
-        {quizState === "active" && role === "host" && <HostActive />}
-        {quizState === "result" && role === "host" && <HostResult />}
+        {phase === "lobby" && role === "host" && <HostLobby />}
+        {phase === "active" && role === "host" && <HostActive />}
+        {phase === "results" && role === "host" && <HostResult />}
 
-        {quizState === "lobby" && role === "guest" && <GuestLobby />}
-        {quizState === "active" && role === "guest" && <GuestActive />}
-        {quizState === "result" && role === "guest" && <GuestResult />}
+        {phase === "lobby" && role === "guest" && <GuestLobby />}
+        {phase === "active" && role === "guest" && <GuestActive />}
+        {phase === "results" && role === "guest" && <GuestResult />}
       </div>
     </div>
   );

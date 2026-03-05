@@ -13,7 +13,7 @@ export default function BuildNavbar({ children }: { children: React.ReactNode })
               <span className="bg-gradient-to-r tracking-tight from-emerald-500 via-teal-300 to bg-emerald-500 bg-clip-text text-transparent ">
                 Quiz
               </span>
-              <span className="text-white">AI</span>
+              <span className="text-white">Live</span>
             </div>
             <div className="font-mono text-[0.62rem] lg:text-xs tracking-wider  text-gray-400 uppercase">
               creator studio

@@ -15,7 +15,7 @@ export type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   errCounter?: number;
 };
 
-export type TabSwitcherProps<T> = {
+export type TabSwitcherProps = {
   tab: "login" | "signup";
   setTab: React.Dispatch<React.SetStateAction<"login" | "signup">>;
   onSwitch: () => void;

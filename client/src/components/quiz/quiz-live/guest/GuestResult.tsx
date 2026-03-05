@@ -1,15 +1,22 @@
 import { Trophy, Zap, Award } from "lucide-react";
-
-const leaderboard = [
-  { rank: 1, name: "Alice", score: 2450, isYou: false },
-  { rank: 2, name: "You", score: 2180, isYou: true },
-  { rank: 3, name: "Charlie", score: 2050, isYou: false },
-  { rank: 4, name: "Diana", score: 1890, isYou: false },
-  { rank: 5, name: "Eve", score: 1720, isYou: false },
-];
+import { useLiveStore } from "../../../../store/liveStore";
+import { useAuthStore } from "../../../../store/authStore";
+import { useNavigate } from "react-router-dom";
 
 export default function GuestResult() {
-  const finalScore = 2180;
+  const username = useAuthStore((state) => state.username);
+  const leaderboard = useLiveStore((state) => state.leaderBoard);
+  const nav = useNavigate();
+
+  const sortedLeaderboard = [...leaderboard]
+    .sort((a, b) => b.score - a.score)
+    .map((user, index) => ({
+      ...user,
+      rank: index + 1,
+    }));
+
+  const userData = sortedLeaderboard.find((user) => user.name === username);
+
   return (
     <div className=" text-white">
       <div className="max-w-4xl mx-auto px-6 py-8">
@@ -24,7 +31,7 @@ export default function GuestResult() {
 
             <div className="grid grid-cols-2 gap-4 max-w-lg mx-auto">
               <div className="p-4 bg-black/50 border border-gray-800 rounded-xl">
-                <div className="text-3xl font-black text-emerald-400">{finalScore}</div>
+                <div className="text-3xl font-black text-emerald-400">{userData?.score}</div>
                 <div className="text-xs text-gray-500 font-mono mt-1">FINAL SCORE</div>
               </div>
               <div className="p-4 bg-black/50 border border-gray-800 rounded-xl">
@@ -42,11 +49,11 @@ export default function GuestResult() {
             </h3>
 
             <div className="space-y-3">
-              {leaderboard.map((player) => (
+              {sortedLeaderboard.map((player, index) => (
                 <div
-                  key={player.rank}
+                  key={index}
                   className={`flex items-center gap-4 p-4 rounded-xl transition-all ${
-                    player.isYou
+                    player.name === username
                       ? "bg-emerald-500/20 border-2 border-emerald-500"
                       : "bg-black/50 border border-gray-800"
                   }`}
@@ -56,10 +63,10 @@ export default function GuestResult() {
                       player.rank === 1
                         ? "bg-yellow-500 text-black"
                         : player.rank === 2
-                        ? "bg-gray-400 text-black"
-                        : player.rank === 3
-                        ? "bg-amber-700 text-white"
-                        : "bg-gray-800 text-gray-400"
+                          ? "bg-gray-400 text-black"
+                          : player.rank === 3
+                            ? "bg-amber-700 text-white"
+                            : "bg-gray-800 text-gray-400"
                     }`}
                   >
                     {player.rank}
@@ -68,7 +75,7 @@ export default function GuestResult() {
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
                       <span className="text-white font-bold">{player.name}</span>
-                      {player.isYou && (
+                      {player.name === username && (
                         <span className="px-2 py-0.5 bg-emerald-500/30 border border-emerald-500/50 rounded text-xs font-mono text-emerald-400">
                           YOU
                         </span>
@@ -90,7 +97,7 @@ export default function GuestResult() {
             <button className="px-6 py-4 bg-black/50 border border-emerald-500/30 rounded-xl text-white font-bold hover:bg-black/70 hover:border-emerald-500/50 transition-all">
               View Detailed Stats
             </button>
-            <button className="relative group overflow-hidden rounded-xl">
+            <button onClick={() => nav("/home")} className="relative group overflow-hidden rounded-xl">
               <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 to-teal-600" />
               <div className="relative px-6 py-4 font-bold text-white flex items-center justify-center gap-2">
                 <Zap className="w-5 h-5" />

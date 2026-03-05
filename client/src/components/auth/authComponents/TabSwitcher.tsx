@@ -1,8 +1,7 @@
 import { Dot } from "lucide-react";
 import type { TabSwitcherProps } from "../auth.types";
 import Button from "../../globals/Button";
-import type { AuthFormData } from "../auth.types";
-export default function TabSwitcher({ tab, onSwitch, setTab }: TabSwitcherProps<AuthFormData>) {
+export default function TabSwitcher({ tab, onSwitch, setTab }: TabSwitcherProps) {
   return (
     <div className="max-w-full h-16 bg-black/30 px-3 flex gap-2 mt-2  ">
       <Button

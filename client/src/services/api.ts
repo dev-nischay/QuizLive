@@ -1,7 +1,5 @@
 import axios from "axios";
 const baseUrl = import.meta.env.VITE_API_URL;
-import NotFoundPage from "../components/globals/NotFoundPage";
-import { useAuthStore } from "../store/authStore";
 if (!baseUrl) {
   console.log("url not found");
 }

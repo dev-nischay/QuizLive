@@ -1,6 +1,6 @@
 import { Brain } from "lucide-react";
 import { Users2 } from "lucide-react";
-export default function LiveNavbar() {
+export default function LiveNavbar({ currentPlayers }: { currentPlayers: number }) {
   return (
     <div className=" z-10  backdrop-blur-sm  fixed inset-x-0 top-0 max-w-8xl lg:relative w-full h-20 lg:h-24 border-b bg-black/50 border-b-emerald-950  flex justify-between  px-4 lg:pl-20 lg:pr-10">
       <div className=" flex items-center">
@@ -13,7 +13,7 @@ export default function LiveNavbar() {
               <span className="bg-gradient-to-r tracking-tight from-emerald-500 via-teal-300 to bg-emerald-500 bg-clip-text text-transparent ">
                 Quiz
               </span>
-              <span className="text-white">AI</span>
+              <span className="text-white">Live</span>
             </div>
             <div className="font-mono text-[0.62rem] lg:text-x  tracking-normal  text-gray-400 uppercase">
               host control panel
@@ -27,7 +27,7 @@ export default function LiveNavbar() {
           <div>
             <Users2 size={20} className="text-emerald-600" />
           </div>
-          <div className="text-neutral-300">12 Players</div>
+          <div className="text-neutral-300">{currentPlayers ?? "waiting for data"}</div>
         </div>
         <div className="text-4xl animate-pulse text-emerald-500 pb-2">•</div>
       </div>
