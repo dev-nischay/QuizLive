@@ -57,6 +57,7 @@ export const createQuiz = async (
     answers: new Map(),
     currentQuestionId: null,
     users: new Map(),
+    questionIndex: 0,
   });
 
   console.log(QuizMemory);

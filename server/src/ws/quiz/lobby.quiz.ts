@@ -6,10 +6,11 @@ import { broadCastMessage } from "../utils/broadCast.js";
 import { wsSend } from "../utils/wsSend.js";
 
 export const lobbyUpdates = (quiz: QuizRoom) => {
-  const userCount = quiz.users.size;
+  const users = [...quiz.users.values()].map((user) => user.name);
+
   const response: LobbyUpdates = {
     type: "LOBBY",
-    userCount,
+    users,
   };
   wsSend(quiz.hostConnection.ws!, response);
 

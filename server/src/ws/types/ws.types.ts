@@ -25,6 +25,7 @@ export type QuizRoom = {
   questions: Map<string, Question>;
   users: Map<string, SocketUser>;
   answers: Map<string, Map<string, Options>>;
+  questionIndex: number;
 };
 
 export type Result = {

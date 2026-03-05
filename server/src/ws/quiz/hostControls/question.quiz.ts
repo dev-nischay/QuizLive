@@ -4,8 +4,7 @@ import { type showQuestionBody, showQuestionSchema } from "../../zod/quizActions
 import { zodParser } from "../../zod/zodParser.js";
 import { getQuiz } from "../../utils/getQuiz.js";
 import { wsError } from "../../utils/wsError.js";
-import { increment, QuizMemory } from "../../quiz.memory.js";
-import { CounterMemory } from "../../quiz.memory.js";
+import { QuizMemory } from "../../quiz.memory.js";
 import type { QuestionResponse, QuizCompleted } from "../../types/server.types.js";
 import { Quiz } from "../../../http/models/quiz.js";
 import { leaderboard } from "../leaderBoard.quiz.js";
@@ -25,7 +24,7 @@ export const showQuestion = async (socket: AuthWebSocket, message: ShowQuestionR
   if (quiz.questions && quiz.questions.size > 0) {
     const questions = [...quiz.questions.values()];
 
-    if (CounterMemory >= questions.length) {
+    if (quiz.questionIndex >= questions.length) {
       const hostsocket = quiz.hostConnection.ws;
 
       leaderboard(socket);
@@ -34,6 +33,7 @@ export const showQuestion = async (socket: AuthWebSocket, message: ShowQuestionR
         message: "quiz is finished",
       };
 
+      wsSend(hostsocket, response);
       broadCastMessage(quiz, response, { close: true, message: "quiz ended" });
       hostsocket?.close(1000, "quiz is finished");
 
@@ -42,10 +42,10 @@ export const showQuestion = async (socket: AuthWebSocket, message: ShowQuestionR
       return; // quiz removed from db
     }
 
-    let currentQuestion = questions[CounterMemory];
+    let currentQuestion = questions[quiz.questionIndex];
 
     if (!currentQuestion) throw new wsError("Question not found", true);
-    increment();
+    quiz.questionIndex++;
 
     console.log(`Currently Showing Question${currentQuestion.text}`);
 
@@ -64,11 +64,18 @@ export const showQuestion = async (socket: AuthWebSocket, message: ShowQuestionR
     quiz.answers.set(currentQuestion._id, new Map());
 
     // sending current live question to host
-    wsSend(socket, response);
+    wsSend(socket, {
+      type: "QUESTION",
+      quizId,
+      questionId: currentQuestion._id,
+      text: currentQuestion.text,
+      options: currentQuestion.options,
+      correctOptionIndex: currentQuestion.correctOptionIndex,
+    });
     // broadcasting current question to all the users
     broadCastMessage(quiz, response, { close: false });
   }
   leaderboard(socket);
-  console.log(CounterMemory);
+  console.log(quiz.questionIndex);
   return;
 };

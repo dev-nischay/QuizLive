@@ -20,6 +20,7 @@ export type QuestionResponse = Pick<Question, "text" | "options"> & {
   type: "QUESTION";
   quizId: string;
   questionId: string;
+  correctOptionIndex?: Options; // only sent to host
 };
 
 export type SubmitAnswerResponse = {
@@ -52,7 +53,7 @@ export type LeaderboardUpdates = {
 
 export type LobbyUpdates = {
   type: "LOBBY";
-  userCount: number;
+  users: string[];
 };
 
 export type QuizCompleted = {
