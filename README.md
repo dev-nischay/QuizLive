@@ -12,9 +12,8 @@ A real-time quiz platform: create quizzes, host live sessions, and join as a pla
 
 ## Tech stack
 
-| Layer   | Stack |
-|---------|-------|
 | **Client** | React 19, TypeScript, Vite, React Router, TanStack Query, Zustand, Axios, Zod, Tailwind CSS, Lucide icons |
+
 | **Server** | Node.js, Express 5, TypeScript, Mongoose, JWT (jsonwebtoken), bcrypt, Zod, WebSockets (ws), CORS, dotenv |
 
 ## Project structure
