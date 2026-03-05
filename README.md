@@ -103,4 +103,4 @@ Then open the URL Vite prints (e.g. `http://localhost:5173`).
 
 ## License
 
-ISC
+MIT
