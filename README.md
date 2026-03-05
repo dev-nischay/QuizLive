@@ -1,4 +1,4 @@
-# QuizAi
+# QuizLive
 
 A real-time quiz platform: create quizzes, host live sessions, and join as a player. Built with a React + Vite frontend and Node + Express backend, with WebSockets for live gameplay.
 
