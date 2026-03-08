@@ -15,7 +15,6 @@ export const QuestionBuilder = ({
   setEditing,
 }: QuestionBuilderProps) => {
   const { addQuestion, updateQuestion, removeQuestion } = quesControls;
-
   const questionRef = useRef<HTMLInputElement | null>(null);
   const [correctIndex, setCorrectIndex] = useState<0 | 1 | 2 | 3>(0);
   const optionsText = ["option a", "option b", "option c", "option d"];

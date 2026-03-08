@@ -1,4 +1,4 @@
-import { AlertCircle, RefreshCw, Home } from "lucide-react";
+import { AlertCircle, Home } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export default function Error({ message = "Something went wrong" }: { message: string }) {

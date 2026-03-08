@@ -35,7 +35,7 @@ export default function GuestResult() {
                 <div className="text-xs text-gray-500 font-mono mt-1">FINAL SCORE</div>
               </div>
               <div className="p-4 bg-black/50 border border-gray-800 rounded-xl">
-                <div className="text-3xl font-black text-teal-400">2nd</div>
+                <div className="text-3xl font-black text-teal-400">{userData?.rank}</div>
                 <div className="text-xs text-gray-500 font-mono mt-1">PLACE</div>
               </div>
             </div>

@@ -28,6 +28,7 @@ export default function QuizLivePage() {
     }
     console.log("ran");
     console.log(quizId);
+
     if (token && quizId) socketService.connect(token, role!, quizId);
   }, []);
 
