@@ -66,6 +66,11 @@ export type GeneralResponse = {
   message: string;
 };
 
+export type BroadCast = {
+  type: "BROADCAST";
+  message: string;
+};
+
 export type ServerResponse =
   | JoinResponse
   | StartResponse
@@ -77,4 +82,5 @@ export type ServerResponse =
   | QuizCompleted
   | GeneralResponse
   | LobbyUpdates
-  | StopQuizResponse;
+  | StopQuizResponse
+  | BroadCast;
