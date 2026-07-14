@@ -23,7 +23,7 @@ export const stopQuiz = async (socket: AuthWebSocket, message: StopQuizRequest) 
 
   hostsocket?.close(1000, "quiz finished early");
 
-  QuizMemory.delete(quizId); // quiz removed from memory
+  QuizMemory.delete(quizId); // quiz removed from memory 
   await Quiz.findOneAndDelete({ createdBy: userId });
   return;
 };

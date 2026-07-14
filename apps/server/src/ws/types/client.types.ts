@@ -17,7 +17,6 @@ export type StopQuizRequest = {
 
 export type SubmitAnswerRequest = {
   type: "SUBMIT_ANSWER";
-  // questionId: string;
   selectedOptionIndex: 0 | 1 | 2 | 3;
 };
 

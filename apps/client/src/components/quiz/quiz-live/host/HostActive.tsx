@@ -10,14 +10,14 @@ import { showQuestion } from "../../../../live/handlers/host/showQuestion";
 import { socketService } from "../../../../live/socket-client";
 export default function HostActive() {
   const currentQuestion = useLiveStore((state) => state.currentQuestion);
- 
+
   const totalQuestions = useQuizStore((state) => state.questionCount);
   const quizTitle = useQuizStore((state) => state.title);
- 
+
   const [showAnswer, setShowAnswer] = useState(false);
- 
+
   // add roomCode in design later
- 
+
   return (
     <div className="w-full flex lg:flex-row flex-col 2xl:mt-20 mt-4 gap-4">
       {/* Left Column */}
@@ -31,13 +31,13 @@ export default function HostActive() {
             <span>In Progress</span>
           </div>
         </div>
- 
+
         {/* quiz active state */}
         <div className="bg-gradient-to-br  from-gray-900/90 to-black/90 border border-emerald-500/30 rounded-2xl p-6  ">
           <Badge text={"question 1"} />
           {/* current live question */}
           <div className="font-bold text-xl mt-4 ">{currentQuestion?.text}</div>
- 
+
           {currentQuestion?.options.map((e, index) => (
             <HostOption
               correctOptionIndex={currentQuestion.correctOptionIndex!} // correct index will only exist for host
@@ -47,7 +47,7 @@ export default function HostActive() {
             />
           ))}
         </div>
- 
+
         <div className="w-full flex gap-2">
           <button
             onClick={() => setShowAnswer((prev) => !prev)}
@@ -58,7 +58,7 @@ export default function HostActive() {
               {showAnswer ? "show answer" : "hide answer"}
             </div>
           </button>
- 
+
           <button
             onClick={() => socketService.sendMessage(showQuestion())}
             className="bg-gradient-to-br w-1/2 from-emerald-600 hover:scale-105 to-teal-600 flex justify-center py-4  rounded-xl gap-2 items-center transition-all z-10"
@@ -69,7 +69,7 @@ export default function HostActive() {
             <div className=" text-sm lg:text-base uppercase font-bold cursor-pointer">next question</div>
           </button>
         </div>
- 
+
         <button
           onClick={() => socketService.sendMessage(endQuiz())}
           className="w-full bg-red-950/50 border-red-900/50 hover:border-red-800/50 hover:bg-red-900/50  border  flex justify-center py-4 mt-2 rounded-xl gap-2 items-center transition-all z-10"
@@ -77,13 +77,13 @@ export default function HostActive() {
           <div className=" text-red-400 font-bold cursor-pointer capitalize">end quiz early</div>
         </button>
       </div>
- 
+
       {/*  leaderboard stats */}
       <Leaderboard />
     </div>
   );
 }
- 
+
 const HostOption = ({ text, optionIndex, correctOptionIndex, show }: HostOptionProps) => {
   return (
     <div className="relative">

@@ -2,7 +2,6 @@ import type { AuthWebSocket } from "../types/ws.types.js";
 import { joinRoom } from "../quiz/guestControls/join.quiz.js";
 import { submitAnswer } from "../quiz/guestControls/submit.quiz.js";
 import { isParticipant } from "../utils/validateRole.js";
-import { isOpen } from "../utils/isOpen.js";
 import { wsError } from "../utils/wsError.js";
 export const guestRouter = async (socket: AuthWebSocket, message: any) => {
   const typeRequest = message.type;

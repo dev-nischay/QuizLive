@@ -7,9 +7,10 @@ export const connectDb = async () => {
       console.log("Db connected successfully ✅");
     } else {
       console.error("Db connection failed ❗️");
-      process.exitCode = 1;
+      process.exit(1);
     }
   } catch (error) {
     console.error(`Something went wrong while connecting database Error: ${error} `);
+    process.exit(1);
   }
 };

@@ -8,6 +8,7 @@ export type OptionProps = {
 
 export type QuestionBuilderProps = {
   setActive: React.Dispatch<React.SetStateAction<boolean>>;
+
   quesControls: QuestionControls;
   isEditing: boolean;
   editQuestion: Question | null;
