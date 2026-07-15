@@ -1,9 +1,3 @@
-export type joinUser = {
-  type: "JOIN";
-  message: string;
-};
-
-export type leaveUser = {
-  type: "LEAVE";
-  message: string;
-};
+export * from "./contracts/client.contracts.js";
+export * from "./contracts/server.contracts.js";
+export * from "./contracts/global.types.js";
