@@ -1,4 +1,4 @@
-import type { Question } from "../quiz/quiz.types";
+import type { Question } from "@common/contracts";
 
 export type QuizCreateModalProps = {
   roomCode: string;

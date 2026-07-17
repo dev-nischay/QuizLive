@@ -1,4 +1,4 @@
-import type { StopQuizRequest } from "../../live.types";
+import type { StopQuizRequest } from "@common/contracts";
 
 export const endQuiz = (): StopQuizRequest => {
   return {

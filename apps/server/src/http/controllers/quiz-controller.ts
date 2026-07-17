@@ -2,7 +2,7 @@ import type { Request, Response, NextFunction } from "express";
 import type { createQuizBody } from "../validation/quiz-schema.js";
 import type { TQuiz } from "../types/mongo.types.js";
 import { Quiz } from "../models/quiz.js";
-import type { ApiResponse } from "../types/constants.js";
+import type { ApiResponse } from "@common/contracts";
 import mongoose from "mongoose";
 import { AppError } from "../utils/appError.js";
 import { httpStatus } from "../types/enums.js";

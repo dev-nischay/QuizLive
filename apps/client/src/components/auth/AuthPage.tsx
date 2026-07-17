@@ -12,7 +12,7 @@ import TabSwitcher from "./authComponents/TabSwitcher";
 import Button from "../globals/Button";
 import type { AuthFormData } from "./auth.types";
 import { useFormSubmit } from "../../hooks/form-submit";
-import { loginSchema, signupSchema } from "../../validation/auth-schema";
+import { loginSchema, signupSchema } from "@common/contracts";
 import { useAuthStore } from "../../store/authStore";
 import Loading from "../globals/Loading";
 import { type ApiResponse, type ApiError } from "../../services/api";
@@ -58,7 +58,6 @@ export default function AuthPage() {
       if (username) setUsername(username);
       nav("/home");
       passwordRef.current && (passwordRef.current.value = "");
-      emailRef.current && (emailRef.current.value = "");
     },
     onError: (err) => {
       err.fieldErrors && setFieldErrors(err.fieldErrors);

@@ -8,7 +8,6 @@ import GuestActive from "./guest/GuestActive";
 import GuestResult from "./guest/GuestResult";
 import { useAuthStore } from "../../../store/authStore";
 import { useNavigate } from "react-router-dom";
-import { useQuizStore } from "../../../store/quizStore";
 import { useLiveStore } from "../../../store/liveStore";
 import { socketService } from "../../../live/socket-client";
 import { useRoomStore } from "../../../store/roomStore";

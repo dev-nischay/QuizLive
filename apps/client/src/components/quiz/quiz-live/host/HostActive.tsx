@@ -1,7 +1,8 @@
 import { Eye, Play, EyeOff } from "lucide-react";
 import Leaderboard from "../quiz-live-components/Leaderboard";
 import Badge from "../quiz-live-components/Badge";
-import type { HostOptionProps, OptionIndex } from "../../quiz.types";
+import type { HostOptionProps } from "../../quiz.types";
+import type { Options } from "@common/contracts";
 import { useState } from "react";
 import { useLiveStore } from "../../../../store/liveStore";
 import { useQuizStore } from "../../../../store/quizStore";
@@ -42,7 +43,7 @@ export default function HostActive() {
             <HostOption
               correctOptionIndex={currentQuestion.correctOptionIndex!} // correct index will only exist for host
               text={e}
-              optionIndex={index as OptionIndex}
+              optionIndex={index as Options}
               show={showAnswer}
             />
           ))}

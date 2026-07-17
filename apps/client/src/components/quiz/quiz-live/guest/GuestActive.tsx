@@ -5,7 +5,7 @@ import { useQuizStore } from "../../../../store/quizStore";
 import { useShallow } from "zustand/shallow";
 import { socketService } from "../../../../live/socket-client";
 import { submitAnswer } from "../../../../live/handlers/guest/submitAnswer";
-import type { OptionIndex } from "../../quiz.types";
+import type { Options } from "@common/contracts";
 
 export default function GuestActive() {
   const [gameState, setGameState] = useState<"active" | "answered">("active");
@@ -21,7 +21,7 @@ export default function GuestActive() {
 
   const handleAnswerSelect = (index: number) => {
     if (gameState !== "active") return;
-    socketService.sendMessage(submitAnswer(index as OptionIndex)!);
+    socketService.sendMessage(submitAnswer(index as Options)!);
     setSelectedAnswer(index);
     setGameState("answered");
     setCoutner((counter) => counter + 1);

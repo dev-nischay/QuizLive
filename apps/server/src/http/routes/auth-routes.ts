@@ -2,7 +2,7 @@ import { Router } from "express";
 const authRouter = Router();
 import { Validate } from "../middlewares/validator.js";
 import { auth } from "../middlewares/auth.js";
-import { loginSchema, signupSchema } from "../validation/auth-schema.js";
+import { loginSchema, signupSchema } from "@common/contracts";
 import { asyncHandler } from "../utils/asyncWrapper.js";
 import { loginAccount, createAccount, getAccount } from "../controllers/auth-controller.js";
 

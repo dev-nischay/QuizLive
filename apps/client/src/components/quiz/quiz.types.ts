@@ -1,4 +1,5 @@
 import type { QuestionControls } from "./quiz-build/questionControls";
+import type { Question, Options } from "@common/contracts";
 export type OptionProps = {
   placeholder: string;
   setCorrectIndex: React.Dispatch<React.SetStateAction<0 | 1 | 2 | 3>>;
@@ -16,13 +17,6 @@ export type QuestionBuilderProps = {
   setEditQuestion: React.Dispatch<React.SetStateAction<Question | null>>;
 };
 
-export type Question = {
-  _id: string;
-  text: string;
-  options: [string, string, string, string];
-  correctOptionIndex: 0 | 1 | 2 | 3;
-};
-
 export type QuizFormData = {
   title: string;
   quizId: string;
@@ -36,11 +30,9 @@ export type QuestionPreviewProps = Question & {
   setEditQuestion: React.Dispatch<React.SetStateAction<Question | null>>;
 };
 
-export type OptionIndex = 0 | 1 | 2 | 3;
-
 export type HostOptionProps = {
   text: string;
-  optionIndex: OptionIndex;
-  correctOptionIndex: OptionIndex;
+  optionIndex: Options;
+  correctOptionIndex: Options;
   show: boolean;
 };

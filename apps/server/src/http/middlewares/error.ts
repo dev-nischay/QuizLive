@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction, ErrorRequestHandler } from "express";
 import { AppError } from "../utils/appError.js";
-import { type ApiError } from "../types/constants.js";
+import { type ApiError } from "@common/contracts";
 import { httpStatus } from "../types/enums.js";
 
 export const error: ErrorRequestHandler = (err: unknown, req: Request, res: Response<ApiError>, next: NextFunction) => {

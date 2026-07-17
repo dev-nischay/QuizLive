@@ -1,5 +1,14 @@
-import type { Options, Question } from "../../types/global.types.js";
-import type { LeaderBoard, Result } from "./ws.types.js";
+import type { Question, Options } from "@common/contracts";
+
+export type Result = {
+  name: string;
+  selectedOption: Options;
+};
+
+export type LeaderBoard = {
+  name: string;
+  score: number;
+};
 export type JoinResponse = {
   type: "USER_JOINED";
   message: string;

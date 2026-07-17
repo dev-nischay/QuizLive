@@ -1,4 +1,4 @@
-import type { ServerResponse } from "./live.types";
+import type { ServerResponse } from "@common/contracts";
 import { useLiveStore } from "../store/liveStore";
 
 export const messageRouter = (response: ServerResponse) => {
@@ -38,7 +38,7 @@ export const messageRouter = (response: ServerResponse) => {
 
     case "ERROR":
       console.log(response.error);
-      // redirect error
+      // show either error toast or error modal depending upon the server instructions
       break;
 
     case "LEADERBOARD":

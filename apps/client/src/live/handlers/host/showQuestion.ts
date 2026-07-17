@@ -1,4 +1,4 @@
-import type { ShowQuestionRequest } from "../../live.types";
+import type { ShowQuestionRequest } from "@common/contracts";
 
 export const showQuestion = (): ShowQuestionRequest => {
   return {

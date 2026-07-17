@@ -1,4 +1,4 @@
-import type { Question } from "../quiz.types";
+import type { Question } from "@common/contracts";
 
 export class QuestionControls {
   questions;

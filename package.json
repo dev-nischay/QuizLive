@@ -5,6 +5,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build:packages": "npm run build -w @common/contracts",
+    "dev": "npm run dev -w client & npm run dev -w server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "workspaces": [

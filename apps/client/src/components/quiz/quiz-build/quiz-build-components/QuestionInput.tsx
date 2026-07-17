@@ -1,9 +1,9 @@
 import Input from "../../../globals/Input";
 import { useState, useRef, forwardRef, useEffect } from "react";
-import type { OptionProps, Question } from "../../quiz.types";
+import type { Question } from "@common/contracts";
 import { Check } from "lucide-react";
 import { X } from "lucide-react";
-import type { QuestionBuilderProps } from "../../quiz.types";
+import type { OptionProps, QuestionBuilderProps } from "../../quiz.types";
 import type { FormEvent } from "react";
 import Button from "../../../globals/Button";
 export const QuestionBuilder = ({

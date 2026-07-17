@@ -1,8 +1,8 @@
 import { create } from "zustand";
-import type { LeaderBoard, SubmitAnswerResponse } from "../live/live.types";
-import type { OptionIndex, Question } from "../components/quiz/quiz.types";
+import type { LeaderBoard, SubmitAnswerResponse } from "@common/contracts";
+import type { Options, Question } from "@common/contracts";
 
-type CurrentQuestion = Pick<Question, "text" | "options"> & { correctOptionIndex?: OptionIndex };
+type CurrentQuestion = Pick<Question, "text" | "options"> & { correctOptionIndex?: Options };
 type LivePhase = "lobby" | "active" | "results";
 type LiveSession = {
   phase: LivePhase;

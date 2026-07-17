@@ -1,4 +1,5 @@
-import type { ClientResponse, ServerResponse } from "./live.types";
+import type { ClientResponse, ServerResponse } from "@common/contracts";
+
 import { messageRouter } from "./router";
 const baseUrl = import.meta.env.VITE_API_URL;
 

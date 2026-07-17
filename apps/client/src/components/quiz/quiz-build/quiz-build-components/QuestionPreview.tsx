@@ -1,6 +1,7 @@
 import { Trash2 } from "lucide-react";
 import { Edit2 } from "lucide-react";
-import type { Question, QuestionPreviewProps } from "../../quiz.types";
+import type { Question } from "@common/contracts";
+import type { QuestionPreviewProps } from "../../quiz.types";
 export const QuestionPreview = ({
   options,
   correctOptionIndex,
