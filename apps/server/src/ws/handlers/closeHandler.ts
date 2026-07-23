@@ -3,7 +3,7 @@ import { getQuiz } from "../utils/getQuiz.js";
 import { wsError } from "../utils/wsError.js";
 import { Quiz } from "../../http/models/quiz.js";
 import { QuizMemory } from "../quiz.memory.js";
-import type { GeneralResponse } from "../types/server.types.js";
+import type { GeneralResponse } from "@common/contracts";
 import { broadCastMessage } from "../utils/broadCast.js";
 import { lobbyUpdates } from "../quiz/lobby.quiz.js";
 export const handleClose = async (socket: AuthWebSocket) => {

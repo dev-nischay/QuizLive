@@ -1,4 +1,4 @@
-import type { ClientResponse } from "../types/client.types.js";
+import type { ClientResponse } from "@common/contracts";
 import type { AuthWebSocket } from "../types/ws.types.js";
 import { isOpen } from "../utils/isOpen.js";
 import { wsError } from "../utils/wsError.js";

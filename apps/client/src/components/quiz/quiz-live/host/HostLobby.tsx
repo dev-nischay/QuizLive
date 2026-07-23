@@ -1,30 +1,28 @@
 import { Trophy, Play } from "lucide-react";
-import Leaderboard from "../quiz-live-components/Leaderboard";
 import { showQuestion } from "../../../../live/handlers/host/showQuestion";
 import { startQuiz } from "../../../../live/handlers/host/startQuiz";
 import { useQuizStore } from "../../../../store/quizStore";
 import { useLiveStore } from "../../../../store/liveStore";
 import { socketService } from "../../../../live/socket-client";
-import { useShallow } from "zustand/shallow";
 import { useEffect } from "react";
 import { useRoomStore } from "../../../../store/roomStore";
- 
+import { PlayerInLobby } from "../quiz-live-components/PlayersInLobby";
+
 export default function HostLobby() {
-  const quizData = useQuizStore(useShallow((state) => ({ title: state.title, totalQuestions: state.questionCount })));
- 
+  const quizData = useQuizStore((state) => state);
   const quizId = useRoomStore((state) => state.roomCode);
   const liveUsers = useLiveStore((state) => state.liveUsers);
- 
+
   useEffect(() => {
     const timer = setTimeout(() => {
       socketService.sendMessage(startQuiz());
     }, 1000);
- 
+
     return () => {
       clearTimeout(timer);
     };
   }, []);
- 
+
   return (
     <div className="w-full flex lg:flex-row flex-col 2xl:mt-20 mt-4 gap-4">
       {/* Left Column */}
@@ -33,12 +31,12 @@ export default function HostLobby() {
         <div className="bg-gradient-to-br from-gray-900/90 to-black/90 border border-emerald-500/30 rounded-2xl p-6">
           <div className="capitalize font-bold pt-2  text-2xl">{quizData.title}</div>
           <div className="font-mono capitalize text-sm text-gray-500 tracking-wider flex items-center gap-3 mt-2 pb-5">
-            <span>{quizData.totalQuestions} Questions</span>
+            <span>{quizData.questionCount} Questions</span>
             <span>•</span>
             <span>ready to start</span>
           </div>
         </div>
- 
+
         {/* quiz lobby state */}
         <div className="bg-gradient-to-br  from-gray-900/90 to-black/90 border border-emerald-500/30 rounded-2xl p-6 flex flex-col items-center  justify-center gap-4 py-14">
           <div className="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl p-5 ">
@@ -53,7 +51,7 @@ export default function HostLobby() {
             <div className=" text-lg font-bold font-mono  text-emerald-600 ">{quizId}</div>
           </div>
         </div>
- 
+
         <div className="bg-gradient-to-br from-emerald-600 hover:scale-105 to-teal-600 flex justify-center py-4 mt-2 rounded-xl gap-2 items-center transition-all z-10">
           <div>
             <Play size={20} />
@@ -66,9 +64,10 @@ export default function HostLobby() {
           </button>
         </div>
       </div>
- 
+
       {/*  leaderboard stats */}
-      <Leaderboard />
+      {/* <Leaderboard /> */}
+      <PlayerInLobby />
     </div>
   );
 }

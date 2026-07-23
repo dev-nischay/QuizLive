@@ -2,7 +2,7 @@ import type { AuthWebSocket } from "../types/ws.types.js";
 import { startQuiz } from "../quiz/hostControls/start.quiz.js";
 import { showQuestion } from "../quiz/hostControls/question.quiz.js";
 import { stopQuiz } from "../quiz/hostControls/stop.quiz.js";
-import type { ClientResponse } from "../types/client.types.js";
+import type { ClientResponse } from "@common/contracts";
 import { wsError } from "../utils/wsError.js";
 import { isOpen } from "../utils/isOpen.js";
 import { isHost } from "../utils/validateRole.js";

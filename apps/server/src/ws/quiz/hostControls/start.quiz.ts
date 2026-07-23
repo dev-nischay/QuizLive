@@ -2,7 +2,7 @@ import { getQuiz } from "../../utils/getQuiz.js";
 import type { AuthWebSocket } from "../../types/ws.types.js";
 import { startQuizSchema, type startBody } from "../../zod/quizActionsSchema.js";
 import { zodParser } from "../../zod/zodParser.js";
-import type { StartQuizRequest } from "../../types/client.types.js";
+import type { StartQuizRequest } from "@common/contracts";
 import { wsSend } from "../../utils/wsSend.js";
 import { wsError } from "../../utils/wsError.js";
 export const startQuiz = async (socket: AuthWebSocket, message: StartQuizRequest) => {

@@ -1,11 +1,11 @@
 import type { AuthWebSocket } from "../../types/ws.types.js";
-import type { SubmitAnswerRequest } from "../../types/client.types.js";
+import type { SubmitAnswerRequest } from "@common/contracts";
 import { getQuiz } from "../../utils/getQuiz.js";
 import { wsError } from "../../utils/wsError.js";
 import { zodParser } from "../../zod/zodParser.js";
 import { submitAnswerSchema, type submitAnswerBody } from "../../zod/quizActionsSchema.js";
 import { wsSend } from "../../utils/wsSend.js";
-import type { SubmitAnswerResponse } from "../../types/server.types.js";
+import type { SubmitAnswerResponse } from "@common/contracts";
 export const submitAnswer = async (socket: AuthWebSocket, message: SubmitAnswerRequest) => {
   const { quizId, userId } = socket.user;
 

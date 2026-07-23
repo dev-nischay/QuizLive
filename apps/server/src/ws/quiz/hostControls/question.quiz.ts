@@ -1,11 +1,11 @@
 import type { AuthWebSocket } from "../../types/ws.types.js";
-import type { ShowQuestionRequest } from "../../types/client.types.js";
+import type { ShowQuestionRequest } from "@common/contracts";
 import { type showQuestionBody, showQuestionSchema } from "../../zod/quizActionsSchema.js";
 import { zodParser } from "../../zod/zodParser.js";
 import { getQuiz } from "../../utils/getQuiz.js";
 import { wsError } from "../../utils/wsError.js";
 import { QuizMemory } from "../../quiz.memory.js";
-import type { QuestionResponse, QuizCompleted } from "../../types/server.types.js";
+import type { QuestionResponse, QuizCompleted } from "@common/contracts";
 import { Quiz } from "../../../http/models/quiz.js";
 import { leaderboard } from "../leaderBoard.quiz.js";
 import { broadCastMessage } from "../../utils/broadCast.js";

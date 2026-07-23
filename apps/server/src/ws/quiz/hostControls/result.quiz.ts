@@ -1,12 +1,12 @@
 import type { AuthWebSocket } from "../../types/ws.types.js";
-import type { ShowQuestionRequest } from "../../types/client.types.js";
+import type { ShowQuestionRequest } from "@common/contracts";
 import type { Result } from "../../types/ws.types.js";
 import { getQuiz } from "../../utils/getQuiz.js";
 import { zodParser } from "../../zod/zodParser.js";
 import { showResultSchema, type showQuestionBody } from "../../zod/quizActionsSchema.js";
 import { wsError } from "../../utils/wsError.js";
 import { wsSend } from "../../utils/wsSend.js";
-import type { ShowResultResponse } from "../../types/server.types.js";
+import type { ShowResultResponse } from "@common/contracts";
 import { broadCastMessage } from "../../utils/broadCast.js";
 export const showResult = (socket: AuthWebSocket, message: ShowQuestionRequest) => {
   const { quizId } = socket.user;

@@ -15,7 +15,7 @@ export default function HostActive() {
   const totalQuestions = useQuizStore((state) => state.questionCount);
   const quizTitle = useQuizStore((state) => state.title);
 
-  const [showAnswer, setShowAnswer] = useState(false);
+  const [showAnswer, setShowAnswer] = useState(true);
 
   // add roomCode in design later
 

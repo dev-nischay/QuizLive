@@ -1,4 +1,4 @@
-import type { ServerResponse } from "../types/server.types.js";
+import type { ServerResponse } from "@common/contracts";
 import type { QuizRoom } from "../types/ws.types.js";
 import { wsSend } from "./wsSend.js";
 import { wsError } from "./wsError.js";

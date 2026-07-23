@@ -6,6 +6,7 @@ import { X } from "lucide-react";
 import type { OptionProps, QuestionBuilderProps } from "../../quiz.types";
 import type { FormEvent } from "react";
 import Button from "../../../globals/Button";
+import { generateRoomCode } from "../../../../utils/generateCode";
 export const QuestionBuilder = ({
   setActive,
   quesControls,
@@ -61,7 +62,7 @@ export const QuestionBuilder = ({
     }
 
     const question: Question = {
-      _id: crypto.randomUUID(),
+      _id: generateRoomCode(),
       text: questionRef.current!.value,
       options: [
         optionsRefs.current[0]!.value,

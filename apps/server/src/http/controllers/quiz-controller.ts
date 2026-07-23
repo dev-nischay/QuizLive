@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from "express";
-import type { createQuizBody } from "../validation/quiz-schema.js";
+import type {createQuizBody} from "@common/contracts"
 import type { TQuiz } from "../types/mongo.types.js";
 import { Quiz } from "../models/quiz.js";
 import type { ApiResponse } from "@common/contracts";

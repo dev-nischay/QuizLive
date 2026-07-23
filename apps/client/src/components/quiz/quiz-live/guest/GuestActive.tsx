@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLiveStore } from "../../../../store/liveStore";
 import { Users, CheckCircle, XCircle, Clock } from "lucide-react";
-import { useQuizStore } from "../../../../store/quizStore";
 import { useShallow } from "zustand/shallow";
 import { socketService } from "../../../../live/socket-client";
 import { submitAnswer } from "../../../../live/handlers/guest/submitAnswer";
@@ -11,12 +10,8 @@ export default function GuestActive() {
   const [gameState, setGameState] = useState<"active" | "answered">("active");
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [counter, setCoutner] = useState(1);
-  const [question, answer, liveUsers] = useLiveStore(
-    useShallow((state) => [state.currentQuestion, state.currentAnswer, state.liveUsers]),
-  );
-
-  const quizData = useQuizStore(
-    useShallow((state) => ({ title: state.title, totalQuestions: state.questionCount, hostName: state.hostedBy })),
+  const [question, answer, liveUsers, quizDetails] = useLiveStore(
+    useShallow((state) => [state.currentQuestion, state.currentAnswer, state.liveUsers, state.quizDetails]),
   );
 
   const handleAnswerSelect = (index: number) => {
@@ -43,7 +38,7 @@ export default function GuestActive() {
             <div className="flex items-center justify-between mb-4">
               <div>
                 <div className="inline-block px-3 py-1 bg-emerald-500/20 border border-emerald-500/50 rounded-lg text-xs font-mono text-emerald-400 mb-2">
-                  QUESTION {counter} OF {quizData.totalQuestions}
+                  QUESTION {counter} OF {quizDetails?.totalQuestionCount}
                 </div>
                 <div className="flex items-center gap-2 text-gray-400 text-sm">
                   <Users className="w-4 h-4" />

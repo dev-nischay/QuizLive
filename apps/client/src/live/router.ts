@@ -2,7 +2,8 @@ import type { ServerResponse } from "@common/contracts";
 import { useLiveStore } from "../store/liveStore";
 
 export const messageRouter = (response: ServerResponse) => {
-  const { phase, setQuestion, setLivePlayers, setLeaderBoard, setAnswer, setPhase } = useLiveStore.getState();
+  const { phase, setQuestion, setLivePlayers, setLeaderBoard, setAnswer, setPhase, setQuizDetails } =
+    useLiveStore.getState();
 
   switch (response.type) {
     case "QUESTION":
@@ -21,6 +22,11 @@ export const messageRouter = (response: ServerResponse) => {
     case "LOBBY":
       setLivePlayers(response.users);
       // update lobby
+      break;
+
+    case "USER_JOINED":
+      let details = response.quizDetails;
+      setQuizDetails(details);
       break;
 
     case "QUIZ_COMPLETED":

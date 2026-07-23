@@ -6,7 +6,7 @@ import { isHost } from "../utils/validateRole.js";
 import { wsError } from "../utils/wsError.js";
 import { wsSend } from "../utils/wsSend.js";
 import type { LeaderBoard } from "../types/ws.types.js";
-import type { LeaderboardUpdates } from "../types/server.types.js";
+import type { LeaderboardUpdates } from "@common/contracts";
 import { broadCastMessage } from "../utils/broadCast.js";
 export const leaderboard = (socket: AuthWebSocket) => {
   const { quizId, userId, role } = socket.user;

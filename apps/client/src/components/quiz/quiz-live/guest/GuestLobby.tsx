@@ -1,19 +1,15 @@
 import { Users, Zap } from "lucide-react";
-import { useQuizStore } from "../../../../store/quizStore";
 import { useLiveStore } from "../../../../store/liveStore";
 import { joinQuiz } from "../../../../live/handlers/guest/joinQuiz";
 import { useAuthStore } from "../../../../store/authStore";
 import { useShallow } from "zustand/shallow";
 import { socketService } from "../../../../live/socket-client";
 import { useEffect } from "react";
+import { PlayerInLobby } from "../quiz-live-components/PlayersInLobby";
 export default function GuestLobby() {
   const username = useAuthStore((state) => state.username);
 
-  const quizData = useQuizStore(
-    useShallow((state) => ({ title: state.title, totalQuestions: state.questionCount, hostName: state.hostedBy })),
-  );
-
-  const liveUsers = useLiveStore((state) => state.liveUsers);
+  const quizDetails = useLiveStore(useShallow((state) => state.quizDetails));
 
   useEffect(() => {
     setTimeout(() => {
@@ -33,18 +29,14 @@ export default function GuestLobby() {
               </div>
 
               <div>
-                <h2 className="text-3xl font-black text-white mb-2">{quizData.title}</h2>
-                <p className="text-gray-400">Hosted by {quizData.hostName}</p>
+                <h2 className="text-3xl font-black text-white mb-2">{quizDetails?.title}</h2>
+                <p className="text-gray-400">Hosted by {quizDetails?.host}</p>
               </div>
 
-              <div className="grid grid-cols-2 gap-4 py-4">
+              <div className="w-full mx-auto max-w-60 justify-center  ">
                 <div className="p-4 bg-black/50 border border-gray-800 rounded-xl">
-                  <div className="text-2xl font-black text-emerald-400">{quizData.totalQuestions}</div>
+                  <div className="text-2xl font-black text-emerald-400">{quizDetails?.totalQuestionCount}</div>
                   <div className="text-xs text-gray-500 font-mono mt-1">QUESTIONS</div>
-                </div>
-                <div className="p-4 bg-black/50 border border-gray-800 rounded-xl">
-                  <div className="text-2xl font-black text-teal-400">{liveUsers.length}</div>
-                  <div className="text-xs text-gray-500 font-mono mt-1">PLAYERS</div>
                 </div>
               </div>
 
@@ -66,23 +58,7 @@ export default function GuestLobby() {
             </div>
           </div>
 
-          {/* Players in Lobby */}
-          <div className="bg-gradient-to-br from-gray-900/90 to-black/90 border border-emerald-500/30 rounded-2xl p-6">
-            <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-              <Users className="w-5 h-5 text-emerald-400" />
-              Players in Lobby
-            </h3>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              {liveUsers.map((name, i) => (
-                <div key={i} className="flex items-center gap-2 p-3 bg-black/50 border border-gray-800 rounded-lg">
-                  <div className="w-8 h-8 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-lg flex items-center justify-center text-sm font-bold">
-                    {name[0]}
-                  </div>
-                  <span className="text-sm text-white font-medium">{name}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+          <PlayerInLobby />
         </div>
       </div>
     </div>

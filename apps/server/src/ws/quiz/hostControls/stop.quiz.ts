@@ -1,10 +1,10 @@
-import type { StopQuizRequest } from "../../types/client.types.js";
+import type { StopQuizRequest } from "@common/contracts";
 import type { AuthWebSocket } from "../../types/ws.types.js";
 import { stopQuizSchema, type stopBody } from "../../zod/quizActionsSchema.js";
 import { zodParser } from "../../zod/zodParser.js";
 import { broadCastMessage } from "../../utils/broadCast.js";
 import { getQuiz } from "../../utils/getQuiz.js";
-import type { StopQuizResponse } from "../../types/server.types.js";
+import type { StopQuizResponse } from "@common/contracts";
 import { QuizMemory } from "../../quiz.memory.js";
 import { Quiz } from "../../../http/models/quiz.js";
 export const stopQuiz = async (socket: AuthWebSocket, message: StopQuizRequest) => {
@@ -23,7 +23,7 @@ export const stopQuiz = async (socket: AuthWebSocket, message: StopQuizRequest) 
 
   hostsocket?.close(1000, "quiz finished early");
 
-  QuizMemory.delete(quizId); // quiz removed from memory 
+  QuizMemory.delete(quizId); // quiz removed from memory
   await Quiz.findOneAndDelete({ createdBy: userId });
   return;
 };
