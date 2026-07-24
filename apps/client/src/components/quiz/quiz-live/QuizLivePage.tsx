@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useLiveStore } from "../../../store/liveStore";
 import { socketService } from "../../../live/socket-client";
 import { useRoomStore } from "../../../store/roomStore";
+import { resetQuizState } from "../../../utils/resetQuizState";
 export default function QuizLivePage() {
   const phase = useLiveStore((state) => state.phase);
   const liveUsers = useLiveStore((state) => state.liveUsers);
@@ -22,16 +23,17 @@ export default function QuizLivePage() {
   const nav = useNavigate();
 
   useEffect(() => {
-    if (!token) {
-      nav("/");
+    if (!role || !quizId) {
+      nav("/home");
+      return;
     }
-    console.log("ran");
-    console.log(quizId);
 
-    if (token && quizId) socketService.connect(token, role!, quizId);
+    socketService.connect(token, role, quizId);
 
     return () => {
       socketService.disconnect();
+
+      resetQuizState();
     };
   }, []);
 

@@ -17,15 +17,25 @@ type LiveSession = {
   setQuizDetails: (details: QuizDetails) => void;
   setLeaderBoard: (leaderBoard: LeaderBoard[]) => void;
   setLivePlayers: (users: string[]) => void;
+  reset: () => void;
 };
 
-export const useLiveStore = create<LiveSession>((set) => ({
+type InititalState = Pick<
+  LiveSession,
+  "phase" | "quizDetails" | "currentQuestion" | "currentAnswer" | "leaderBoard" | "liveUsers"
+>;
+
+const intialState: InititalState = {
   phase: "lobby",
   quizDetails: null,
   currentAnswer: null,
   currentQuestion: null,
   liveUsers: [],
   leaderBoard: [],
+};
+
+export const useLiveStore = create<LiveSession>((set) => ({
+  ...intialState,
 
   setQuestion: (question) => {
     set({ currentQuestion: question });
@@ -48,5 +58,8 @@ export const useLiveStore = create<LiveSession>((set) => ({
   },
   setPhase: (phase) => {
     set({ phase });
+  },
+  reset: () => {
+    set(intialState);
   },
 }));

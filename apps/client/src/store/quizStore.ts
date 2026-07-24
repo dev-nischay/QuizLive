@@ -7,18 +7,26 @@ export type QuizStoreType = {
   hostedBy: string;
 
   setQuiz: (questionCount: number, title: string, hostedBy: string) => void;
+  reset: () => void;
+};
+const initialState = {
+  questionCount: 0,
+  roomCode: "",
+  title: "",
+  hostedBy: "",
 };
 
 export const useQuizStore = create<QuizStoreType>()(
   persist(
     (set) => ({
-      questionCount: 0,
-      roomCode: "",
-      title: "",
-      hostedBy: "",
+      ...initialState,
 
       setQuiz: (questions, title, hostedBy) => {
         set({ questionCount: questions, title, hostedBy });
+      },
+
+      reset: () => {
+        set(initialState);
       },
     }),
     {

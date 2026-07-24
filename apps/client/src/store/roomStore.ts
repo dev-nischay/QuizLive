@@ -4,6 +4,7 @@ import { createJSONStorage } from "zustand/middleware";
 export type RoomStore = {
   roomCode: string | null;
   setRoomCode: (roomCode: string) => void;
+  reset: () => void;
 };
 
 export const useRoomStore = create<RoomStore>()(
@@ -13,6 +14,10 @@ export const useRoomStore = create<RoomStore>()(
 
       setRoomCode: (roomCode) => {
         set({ roomCode });
+      },
+
+      reset: () => {
+        set({ roomCode: null });
       },
     }),
     {
