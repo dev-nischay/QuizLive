@@ -3,7 +3,7 @@ import { getQuiz } from "../utils/getQuiz.js";
 import { wsError } from "../utils/wsError.js";
 import { Quiz } from "../../http/models/quiz.js";
 import { QuizMemory } from "../quiz.memory.js";
-import type { GeneralResponse } from "@common/contracts";
+import type { StopQuizResponse } from "@common/contracts";
 import { broadCastMessage } from "../utils/broadCast.js";
 import { lobbyUpdates } from "../quiz/lobby.quiz.js";
 export const handleClose = async (socket: AuthWebSocket) => {
@@ -13,8 +13,8 @@ export const handleClose = async (socket: AuthWebSocket) => {
   if (quiz.host === userId) {
     quiz.hostConnection.ws = null;
 
-    const response: GeneralResponse = {
-      type: "RESPONSE",
+    const response: StopQuizResponse = {
+      type: "QUIZ_STOPPED",
       message: "host has been disconnected\n redirecting to join page",
     };
 
