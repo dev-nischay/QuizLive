@@ -5,15 +5,11 @@ import type { HostOptionProps } from "../../quiz.types";
 import type { Options } from "@common/contracts";
 import { useState } from "react";
 import { useLiveStore } from "../../../../store/liveStore";
-import { useQuizStore } from "../../../../store/quizStore";
 import { endQuiz } from "../../../../live/handlers/host/stopQuiz";
 import { showQuestion } from "../../../../live/handlers/host/showQuestion";
 import { socketService } from "../../../../live/socket-client";
 export default function HostActive() {
-  const currentQuestion = useLiveStore((state) => state.currentQuestion);
-
-  const totalQuestions = useQuizStore((state) => state.questionCount);
-  const quizTitle = useQuizStore((state) => state.title);
+  const [currentQuestion, quizDetails] = useLiveStore((state) => [state.currentQuestion, state.quizDetails]);
 
   const [showAnswer, setShowAnswer] = useState(true);
 
@@ -25,9 +21,9 @@ export default function HostActive() {
       <div className="flex-1 flex flex-col gap-4">
         {/* quiz detals */}
         <div className="bg-gradient-to-br from-gray-900/90 to-black/90 border border-emerald-500/30 rounded-2xl p-6">
-          <div className="capitalize font-bold pt-2  text-2xl">{quizTitle}</div>
+          <div className="capitalize font-bold pt-2  text-2xl">{quizDetails?.title}</div>
           <div className="font-mono capitalize text-sm text-gray-500 tracking-wider flex items-center gap-3 mt-2 pb-5">
-            <span>{totalQuestions} Questions</span>
+            <span>{quizDetails?.totalQuestionCount} Questions</span>
             <span>•</span>
             <span>In Progress</span>
           </div>

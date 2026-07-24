@@ -1,7 +1,6 @@
 import { Trophy, Play } from "lucide-react";
 import { showQuestion } from "../../../../live/handlers/host/showQuestion";
 import { startQuiz } from "../../../../live/handlers/host/startQuiz";
-import { useQuizStore } from "../../../../store/quizStore";
 import { useLiveStore } from "../../../../store/liveStore";
 import { socketService } from "../../../../live/socket-client";
 import { useEffect } from "react";
@@ -9,7 +8,7 @@ import { useRoomStore } from "../../../../store/roomStore";
 import { PlayerInLobby } from "../quiz-live-components/PlayersInLobby";
 
 export default function HostLobby() {
-  const quizData = useQuizStore((state) => state);
+  const quizDetails = useLiveStore((state) => state.quizDetails);
   const quizId = useRoomStore((state) => state.roomCode);
   const liveUsers = useLiveStore((state) => state.liveUsers);
 
@@ -29,9 +28,9 @@ export default function HostLobby() {
       <div className="flex-1 flex flex-col gap-4">
         {/* quiz detals */}
         <div className="bg-gradient-to-br from-gray-900/90 to-black/90 border border-emerald-500/30 rounded-2xl p-6">
-          <div className="capitalize font-bold pt-2  text-2xl">{quizData.title}</div>
+          <div className="capitalize font-bold pt-2  text-2xl">{quizDetails?.title}</div>
           <div className="font-mono capitalize text-sm text-gray-500 tracking-wider flex items-center gap-3 mt-2 pb-5">
-            <span>{quizData.questionCount} Questions</span>
+            <span>{quizDetails?.totalQuestionCount} Questions</span>
             <span>•</span>
             <span>ready to start</span>
           </div>
@@ -65,8 +64,6 @@ export default function HostLobby() {
         </div>
       </div>
 
-      {/*  leaderboard stats */}
-      {/* <Leaderboard /> */}
       <PlayerInLobby />
     </div>
   );

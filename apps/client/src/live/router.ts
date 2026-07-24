@@ -25,8 +25,7 @@ export const messageRouter = (response: ServerResponse) => {
       break;
 
     case "USER_JOINED":
-      let details = response.quizDetails;
-      setQuizDetails(details);
+      setQuizDetails(response.quizDetails);
       break;
 
     case "QUIZ_COMPLETED":
@@ -35,6 +34,7 @@ export const messageRouter = (response: ServerResponse) => {
       break;
 
     case "QUIZ_STARTED":
+      setQuizDetails(response.quizDetails);
       // redirect to live page
       break;
 

@@ -10,13 +10,11 @@ import Loading from "../globals/Loading";
 import Error from "../globals/Error";
 import { submitQuiz } from "../../services/postQuiz";
 import { useNavigate } from "react-router-dom";
-import { useQuizStore } from "../../store/quizStore";
 import { useAuthStore } from "../../store/authStore";
 import { useRoomStore } from "../../store/roomStore";
 export function QuizCreatedModal({ roomCode, questionCount, onClose, quizData }: QuizCreateModalProps) {
   const [copied, setCopied] = useState(false);
   const nav = useNavigate();
-  const setQuiz = useQuizStore((state) => state.setQuiz);
   const username = useAuthStore((state) => state.username);
   const setRoomCode = useRoomStore((state) => state.setRoomCode);
   const copyRoomCode = () => {
@@ -30,7 +28,6 @@ export function QuizCreatedModal({ roomCode, questionCount, onClose, quizData }:
   const { isPending, mutate, isError } = useMutation<ApiResponse<QuizFormData>, ApiError<QuizFormData>, QuizFormData>({
     mutationFn: submitQuiz,
     onSuccess: () => {
-      setQuiz(questionCount, quizData.title, username);
       setRoomCode(roomCode);
       nav("/live");
     },
