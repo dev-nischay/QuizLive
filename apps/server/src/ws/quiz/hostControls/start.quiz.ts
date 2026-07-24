@@ -19,10 +19,12 @@ export const startQuiz = async (socket: AuthWebSocket, message: StartQuizRequest
 
   console.log("quiz started by host");
 
+  const totalQuestionCount = quiz.questions.size;
   wsSend(socket, {
     type: "QUIZ_STARTED",
     quizId,
     message: "Quiz is now live",
+    quizDetails: { host: quiz.hostConnection.name, totalQuestionCount, title: quiz.title },
   });
   return;
 };

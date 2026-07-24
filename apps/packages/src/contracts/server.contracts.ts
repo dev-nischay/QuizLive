@@ -1,4 +1,5 @@
 import type { Question, Options } from "../types/global.types.js";
+
 export type Result = {
   name: string;
   selectedOption: Options;
@@ -16,6 +17,7 @@ export type JoinResponse = {
 
 export type StartResponse = {
   type: "QUIZ_STARTED";
+  quizDetails: { host: string; totalQuestionCount: number; title: string };
   quizId: string;
   message: string;
 };
